@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#FF2D8E">
+<title>数字媒体技术 &times; 行业分类 &middot; 波普图谱</title>
+<style>
+:root{
+  --ink:#0B0B0B;
+  --paper:#FFF8E6;
+  --yellow:#FFE014;
+  --magenta:#FF2D8E;
+  --cyan:#0FD3E8;
+  --blue:#2B4EFF;
+  --red:#FF3B30;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  font-family:"PingFang SC","HarmonyOS Sans SC","Noto Sans CJK SC","Source Han Sans SC","Microsoft YaHei",system-ui,sans-serif;
+  color:var(--ink);
+  background-color:var(--paper);
+  background-image:radial-gradient(circle, rgba(11,11,11,.13) 1.1px, transparent 1.35px);
+  background-size:11px 11px;
+  line-height:1.55;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+.code,.cc,.sp,.f-src,.mlist li,.gate-letter,.stat-row b,.notes li::before{
+  font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+}
+
+/* ================= HERO ================= */
+.hero{
+  position:relative;
+  padding:34px 18px 26px;
+  background:var(--magenta);
+  border-bottom:7px solid var(--ink);
+  text-align:center;
+  overflow:hidden;
+}
+.hero::before{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:radial-gradient(circle,#fff 2.2px,transparent 2.55px);
+  background-size:15px 15px;opacity:.5;
+}
+.hero::after{
+  content:"";position:absolute;left:-72px;bottom:-96px;width:232px;height:232px;pointer-events:none;
+  background:repeating-linear-gradient(45deg,var(--cyan) 0 12px,#fff 12px 24px);
+  border:6px solid var(--ink);border-radius:50%;opacity:.85;
+}
+.hero>*{position:relative;z-index:2}
+.burst-badge{
+  position:absolute;top:12px;right:8px;width:104px;height:104px;z-index:3;
+  display:grid;place-items:center;text-align:center;
+  background:var(--yellow);color:var(--ink);
+  font-weight:900;font-size:12px;line-height:1.14;letter-spacing:.02em;
+  font-family:ui-monospace,monospace;
+  clip-path:polygon(50% 0%,58% 15%,72% 6%,74% 22%,90% 18%,85% 34%,100% 38%,90% 50%,100% 62%,85% 66%,90% 82%,74% 78%,72% 94%,58% 85%,50% 100%,42% 85%,28% 94%,26% 78%,10% 82%,15% 66%,0% 62%,10% 50%,0% 38%,15% 34%,10% 18%,26% 22%,28% 6%,42% 15%);
+  transform:rotate(-9deg);
+}
+.kicker{
+  display:inline-block;
+  background:var(--ink);color:var(--paper);
+  font-size:11px;font-weight:800;letter-spacing:.24em;
+  padding:5px 14px;margin-bottom:14px;
+  border:3px solid var(--paper);
+}
+.pop-title{
+  font-size:clamp(44px,14.5vw,114px);
+  font-weight:900;line-height:.92;letter-spacing:-.03em;
+  color:var(--yellow);
+  -webkit-text-stroke:3.5px var(--ink);
+  text-shadow:7px 7px 0 var(--ink);
+}
+.pop-title-2{
+  display:inline-block;margin-top:10px;
+  font-size:clamp(18px,5.4vw,34px);font-weight:900;letter-spacing:.05em;
+  background:var(--ink);color:var(--paper);
+  padding:4px 16px;
+  border:3px solid var(--paper);
+  transform:rotate(-1.4deg);
+}
+.hero-sub{
+  margin-top:14px;font-size:clamp(12.5px,3.4vw,16px);font-weight:700;
+  color:var(--ink);background:#fff;
+  display:inline-block;padding:6px 14px;
+  border:3px solid var(--ink);box-shadow:4px 4px 0 var(--ink);
+}
+.stat-row{
+  list-style:none;display:flex;flex-wrap:wrap;gap:9px;justify-content:center;
+  margin-top:20px;
+}
+.stat-row li{
+  background:var(--ink);color:var(--paper);
+  border:3px solid var(--paper);
+  padding:6px 12px 7px;font-size:12px;font-weight:800;
+  display:flex;align-items:baseline;gap:6px;
+}
+.stat-row b{font-size:22px;color:var(--yellow);line-height:1;font-weight:900}
+.stat-row li:nth-child(2n){transform:rotate(1.6deg)}
+.stat-row li:nth-child(2n+1){transform:rotate(-1.6deg)}
+.src-tag{margin-top:16px;font-size:11px;font-weight:700;opacity:.85}
+.src-tag span{
+  background:#fff;border:2px solid var(--ink);padding:2px 7px;
+  font-family:ui-monospace,monospace;word-break:break-all;
+}
+
+/* ================= LEGEND ================= */
+.legend{
+  display:flex;align-items:stretch;justify-content:center;
+  padding:14px 10px;
+  background:var(--ink);
+  border-bottom:6px solid var(--ink);
+  overflow-x:auto;
+  -webkit-overflow-scrolling:touch;
+}
+.lv{
+  flex:1 1 0;min-width:0;max-width:150px;
+  background:#fff;border:3px solid var(--ink);
+  padding:7px 4px;text-align:center;
+}
+.lv b{display:block;font-size:13px;font-weight:900;letter-spacing:.04em}
+.lv span{display:block;font-size:9.5px;font-weight:700;opacity:.78;line-height:1.3;margin-top:2px}
+.lv:nth-child(1){background:var(--magenta)}
+.lv:nth-child(3){background:var(--cyan)}
+.lv:nth-child(5){background:var(--yellow)}
+.lv:nth-child(7){background:#fff}
+.arw{
+  flex:0 0 auto;display:grid;place-items:center;
+  color:var(--paper);font-size:14px;font-weight:900;padding:0 2px;
+}
+
+/* ================= LAYOUT ================= */
+.wrap{max-width:940px;margin:0 auto;padding:0 14px 56px}
+.band{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:38px 0 16px}
+.band h2{
+  background:var(--ink);color:var(--paper);
+  font-size:clamp(16px,4.3vw,23px);font-weight:900;letter-spacing:.02em;
+  padding:7px 20px;
+  border:4px solid var(--ink);
+  box-shadow:7px 7px 0 var(--bc,var(--magenta));
+  transform:skewX(-7deg);
+}
+.band-sub{font-size:11.5px;font-weight:700;opacity:.7;letter-spacing:.02em;line-height:1.6}
+
+/* ================= STAR CARDS ================= */
+.star-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(196px,1fr));gap:14px}
+.star-card{
+  position:relative;
+  background:#fff;border:4px solid var(--ink);
+  box-shadow:6px 6px 0 var(--ink);
+  padding:12px 12px 32px;
+  transition:transform .14s ease, box-shadow .14s ease;
+}
+.star-card:hover{transform:translate(-3px,-3px);box-shadow:9px 9px 0 var(--ink)}
+.star-card::before{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:radial-gradient(circle,rgba(11,11,11,.14) 1px,transparent 1.3px);
+  background-size:8px 8px;opacity:.55;
+}
+.star-card>*{position:relative;z-index:1}
+.star-path{
+  display:flex;align-items:center;gap:3px;flex-wrap:wrap;
+  font-weight:700;margin-bottom:9px;
+}
+.sp{background:var(--ink);color:var(--paper);padding:1px 6px;font-size:11px;font-weight:800}
+.sp.big{background:var(--red);color:#fff;font-size:13px;padding:2px 8px}
+.sp.g{background:var(--blue);color:#fff}
+.sep{opacity:.42;font-weight:900;font-size:12px}
+.star-card h4{font-size:15.5px;font-weight:900;line-height:1.25;letter-spacing:-.01em}
+.star-card p{font-size:11.5px;font-weight:600;opacity:.7;margin-top:4px;line-height:1.45}
+.star-tag{
+  position:absolute;bottom:7px;right:8px;
+  font-size:9.5px;font-weight:900;letter-spacing:.05em;
+  background:var(--yellow);border:2px solid var(--ink);padding:1px 6px;
+}
+.c-magenta{background-image:linear-gradient(180deg,#fff 0 62%,#FFD9EA 62% 100%)}
+.c-cyan{background-image:linear-gradient(180deg,#fff 0 62%,#CFF9FF 62% 100%)}
+.c-yellow{background-image:linear-gradient(180deg,#fff 0 62%,#FFF3B0 62% 100%)}
+.c-red{background-image:linear-gradient(180deg,#fff 0 62%,#FFD9D6 62% 100%)}
+
+/* ================= FILTER ================= */
+.filters{display:flex;gap:9px;flex-wrap:wrap;margin:4px 0 20px}
+.fbtn{
+  font-family:inherit;font-size:12px;font-weight:800;letter-spacing:.02em;
+  background:#fff;color:var(--ink);
+  border:3px solid var(--ink);box-shadow:4px 4px 0 var(--ink);
+  padding:7px 14px;cursor:pointer;
+  transition:transform .12s, box-shadow .12s, background .12s;
+}
+.fbtn:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink)}
+.fbtn[aria-pressed="true"]{background:var(--yellow)}
+.fbtn:active{transform:translate(1px,1px);box-shadow:2px 2px 0 var(--ink)}
+
+/* ================= PANELS ================= */
+.panel{
+  background:#fff;
+  border:5px solid var(--ink);
+  box-shadow:9px 9px 0 var(--ink);
+  margin-bottom:24px;
+  position:relative;
+}
+.panel[hidden]{display:none}
+.panel-head{
+  display:flex;align-items:flex-start;gap:12px;
+  padding:13px 14px;
+  border-bottom:5px solid var(--ink);
+  position:relative;overflow:hidden;
+}
+.t-core .panel-head{background:var(--magenta)}
+.t-strong .panel-head{background:var(--cyan)}
+.t-ext .panel-head{background:var(--yellow)}
+.panel-head::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:radial-gradient(circle,rgba(255,255,255,.62) 1.7px,transparent 2.1px);
+  background-size:12px 12px;opacity:.6;
+}
+.panel-head>*{position:relative;z-index:1}
+.gate-letter{
+  flex:0 0 auto;width:54px;height:54px;
+  display:grid;place-items:center;
+  background:var(--ink);color:var(--paper);
+  font-size:31px;font-weight:900;
+  border:3px solid #fff;
+  box-shadow:0 0 0 3px var(--ink);
+}
+.gate-kicker{font-size:10px;font-weight:800;letter-spacing:.2em;opacity:.82}
+.gate-name{
+  font-size:clamp(16px,4.4vw,21px);font-weight:900;line-height:1.25;
+  letter-spacing:-.01em;
+  text-shadow:2px 2px 0 rgba(255,255,255,.72);
+}
+.gate-note{font-size:11px;font-weight:700;opacity:.8;margin-top:3px;line-height:1.45}
+.tier-badge{
+  flex:0 0 auto;margin-left:auto;align-self:flex-start;
+  background:var(--ink);color:var(--yellow);
+  font-size:10px;font-weight:900;letter-spacing:.1em;
+  padding:3px 9px;
+  border:2px solid var(--yellow);
+  transform:rotate(4deg);
+  white-space:nowrap;
+}
+.panel-body{padding:6px 14px 16px}
+
+.c2block{padding:14px 0;border-top:3px dashed rgba(11,11,11,.24)}
+.c2block:first-child{border-top:0}
+.c2head{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.code{font-weight:800;letter-spacing:.01em}
+.c2code{
+  background:var(--ink);color:var(--paper);
+  font-size:14px;padding:1px 9px;
+  box-shadow:3px 3px 0 var(--magenta);
+}
+.c2name{font-size:15.5px;font-weight:900;letter-spacing:-.01em;line-height:1.32}
+.c2note{font-size:11px;font-weight:600;opacity:.6;margin-top:5px;line-height:1.55}
+
+.mid{border-left:6px solid var(--ink);padding:2px 0 2px 12px;margin-top:13px}
+.c3head{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.c3code{background:var(--cyan);color:var(--ink);font-size:12.5px;padding:1px 7px;border:2px solid var(--ink)}
+.c3name{font-size:13.5px;font-weight:800}
+.mark{color:var(--red);font-style:normal;font-size:13px}
+.merged{
+  font-size:9px;font-weight:800;letter-spacing:.04em;
+  background:#EFEFEF;border:1.5px solid var(--ink);
+  padding:0 5px;opacity:.72;
+}
+.smalls{list-style:none;display:flex;flex-wrap:wrap;gap:7px;margin-top:9px}
+.chip{
+  display:inline-flex;align-items:center;gap:6px;flex-wrap:wrap;max-width:100%;
+  border:2.5px solid var(--ink);
+  background:#fff;
+  padding:4px 9px;
+  font-size:12.5px;font-weight:700;
+  box-shadow:2.5px 2.5px 0 var(--ink);
+  transition:transform .12s, box-shadow .12s;
+  line-height:1.35;
+}
+.chip:hover{transform:translate(-2px,-2px);box-shadow:4.5px 4.5px 0 var(--ink)}
+.chip .cc{background:var(--ink);color:var(--paper);font-size:10.5px;font-weight:800;padding:0 5px}
+.chip .cn{white-space:normal}
+.chip .note{display:none}
+.chip.star .note{
+  display:inline;font-size:10.5px;font-weight:600;opacity:.68;
+  border-left:2px solid rgba(11,11,11,.38);padding-left:6px;
+}
+.chip.star{background:var(--yellow);box-shadow:3.5px 3.5px 0 var(--magenta)}
+.chip.star .cc{background:var(--magenta);color:#fff}
+
+/* ================= MATRIX ================= */
+.scroll{
+  overflow-x:auto;
+  border:5px solid var(--ink);
+  box-shadow:9px 9px 0 var(--ink);
+  background:#fff;
+  -webkit-overflow-scrolling:touch;
+}
+.matrix{width:100%;border-collapse:collapse;min-width:520px}
+.matrix thead th{
+  background:var(--ink);color:var(--yellow);
+  font-size:12px;font-weight:900;letter-spacing:.14em;
+  text-align:left;padding:9px 12px;
+  border-bottom:4px solid var(--ink);
+  white-space:nowrap;
+}
+.matrix th[scope="row"]{
+  background:var(--paper);
+  font-size:12.5px;font-weight:900;
+  text-align:left;padding:12px;
+  border-bottom:3px solid var(--ink);
+  border-right:4px solid var(--ink);
+  width:134px;min-width:108px;
+  vertical-align:top;line-height:1.35;
+}
+.matrix td{padding:12px;border-bottom:3px solid var(--ink);vertical-align:top}
+.matrix tbody tr:nth-child(4n+2) th[scope="row"]{background:#FFE9F3}
+.matrix tbody tr:nth-child(4n+3) th[scope="row"]{background:#DFFAFE}
+.matrix tbody tr:nth-child(4n+4) th[scope="row"]{background:#FFF6C2}
+.mlist{list-style:none;display:flex;flex-wrap:wrap;gap:6px}
+.mlist li{
+  font-size:10.5px;font-weight:700;
+  background:#fff;border:2px solid var(--ink);
+  padding:3px 7px;line-height:1.35;
+}
+.matrix tbody tr:last-child th,.matrix tbody tr:last-child td{border-bottom:0}
+
+/* ================= NOTES ================= */
+.notes{
+  margin-top:26px;
+  background:#fff;border:5px solid var(--ink);
+  box-shadow:9px 9px 0 var(--cyan);
+  padding:16px 16px 18px;
+}
+.notes h3{
+  font-size:14px;font-weight:900;letter-spacing:.06em;
+  display:inline-block;background:var(--ink);color:var(--paper);
+  padding:3px 11px;margin-bottom:12px;
+  transform:rotate(-1deg);
+}
+.notes ol{list-style:none;counter-reset:n}
+.notes li{
+  counter-increment:n;
+  font-size:12.5px;font-weight:600;line-height:1.65;
+  padding-left:28px;position:relative;margin-bottom:9px;
+}
+.notes li::before{
+  content:counter(n);
+  position:absolute;left:0;top:1px;
+  width:18px;height:18px;display:grid;place-items:center;
+  background:var(--yellow);border:2px solid var(--ink);
+  font-size:10px;font-weight:900;
+}
+.notes b{background-image:linear-gradient(180deg,transparent 58%,var(--yellow) 58% 100%)}
+
+/* ================= FOOTER ================= */
+footer{
+  margin-top:34px;
+  background:var(--ink);color:var(--paper);
+  border-top:7px solid var(--magenta);
+  padding:24px 16px 34px;
+  text-align:center;
+}
+footer .f-pop{
+  font-size:clamp(22px,7vw,40px);font-weight:900;letter-spacing:-.01em;
+  color:var(--yellow);line-height:1.1;
+  text-shadow:4px 4px 0 var(--magenta);
+}
+footer p{font-size:11px;font-weight:600;opacity:.72;margin-top:10px;line-height:1.75}
+footer .f-src{
+  display:inline-block;margin-top:13px;
+  background:var(--paper);color:var(--ink);
+  font-size:10.5px;font-weight:700;
+  padding:4px 9px;
+  word-break:break-all;
+}
+
+@media (max-width:430px){
+  .hero{padding-top:28px}
+  .hero-sub{font-size:11.5px;padding:5px 10px}
+  .burst-badge{width:82px;height:82px;font-size:10px;top:8px;right:2px}
+  .gate-letter{width:46px;height:46px;font-size:26px}
+  .panel-head{gap:9px;padding:11px 11px}
+  .tier-badge{font-size:9px;padding:2px 6px}
+  .matrix th[scope="row"]{width:104px;padding:9px;font-size:11.5px}
+  .matrix td{padding:9px}
+  .panel-body{padding:4px 11px 14px}
+  .star-grid{grid-template-columns:1fr 1fr;gap:11px}
+  .star-card{padding:10px 9px 30px}
+  .star-card h4{font-size:13.5px}
+  .star-card p{font-size:10.5px}
+}
+@media (max-width:390px){
+  .pop-title{font-size:clamp(36px,12.6vw,90px);-webkit-text-stroke-width:3px;text-shadow:5px 5px 0 var(--ink)}
+}
+@media (max-width:360px){
+  .star-grid{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="burst-badge">GB/T<br>4754<br>&mdash;2017</div>
+  <p class="kicker">专业 &times; 行业 &middot; 对标图谱</p>
+  <h1 class="pop-title">数字媒体技术</h1>
+  <div class="pop-title-2">门类 &middot; 大类 &middot; 中类 &middot; 小类</div>
+  <p class="hero-sub">国民经济行业分类 &middot; 全景对照 POP CHART</p>
+  <ul class="stat-row">
+    <li><b>8</b>门类</li>
+    <li><b>18</b>大类</li>
+    <li><b>60</b>中类</li>
+    <li><b>123</b>小类</li>
+    <li><b>36</b>&#9733;标注</li>
+  </ul>
+  <p class="src-tag">来源 &middot; <span>Download/P020200612582987744004.DOCX</span></p>
+</header>
+
+<nav class="legend" aria-label="四级编码图例">
+  <div class="lv"><b>门类</b><span>1位字母<br>A&ndash;T</span></div>
+  <div class="arw">&rsaquo;</div>
+  <div class="lv"><b>大类</b><span>2位数字<br>如 65</span></div>
+  <div class="arw">&rsaquo;</div>
+  <div class="lv"><b>中类</b><span>3位数字<br>如 657</span></div>
+  <div class="arw">&rsaquo;</div>
+  <div class="lv"><b>小类</b><span>4位数字<br>如 6572</span></div>
+</nav>
+
+<div class="wrap">
+<div class="band" style="--bc:var(--red)"><h2>① 核心命中</h2><p class="band-sub">专业能力与行业代码的直接交点</p></div><div class="star-grid"><article class="star-card c-magenta"><div class="star-path"><span class="sp g">I</span><span class="sep">&rsaquo;</span><span class="sp">65</span><span class="sep">&rsaquo;</span><span class="sp">657</span><span class="sep">&rsaquo;</span><span class="sp big">6572</span></div><h4>动漫、游戏数字内容服务</h4><p>数字内容生产的第一落点</p><span class="star-tag">&#9733; 核心代码</span></article><article class="star-card c-cyan"><div class="star-path"><span class="sp g">I</span><span class="sep">&rsaquo;</span><span class="sp">64</span><span class="sep">&rsaquo;</span><span class="sp">642</span><span class="sep">&rsaquo;</span><span class="sp big">6422</span></div><h4>互联网游戏服务</h4><p>含互联网电子竞技服务</p><span class="star-tag">&#9733; 核心代码</span></article><article class="star-card c-yellow"><div class="star-path"><span class="sp g">I</span><span class="sep">&rsaquo;</span><span class="sp">65</span><span class="sep">&rsaquo;</span><span class="sp">651</span><span class="sep">&rsaquo;</span><span class="sp big">6513</span></div><h4>应用软件开发</h4><p>交互、前端与图形引擎实现</p><span class="star-tag">&#9733; 核心代码</span></article><article class="star-card c-red"><div class="star-path"><span class="sp g">R</span><span class="sep">&rsaquo;</span><span class="sp">87</span><span class="sep">&rsaquo;</span><span class="sp">873</span><span class="sep">&rsaquo;</span><span class="sp big">8730</span></div><h4>影视节目制作</h4><p>含后期制作与网络节目制作</p><span class="star-tag">&#9733; 核心代码</span></article><article class="star-card c-magenta"><div class="star-path"><span class="sp g">R</span><span class="sep">&rsaquo;</span><span class="sp">87</span><span class="sep">&rsaquo;</span><span class="sp">877</span><span class="sep">&rsaquo;</span><span class="sp big">8770</span></div><h4>录音制作</h4><p>声音设计与音乐作品制作</p><span class="star-tag">&#9733; 核心代码</span></article><article class="star-card c-cyan"><div class="star-path"><span class="sp g">R</span><span class="sep">&rsaquo;</span><span class="sp">86</span><span class="sep">&rsaquo;</span><span class="sp">862</span><span class="sep">&rsaquo;</span><span class="sp big">8626</span></div><h4>数字出版</h4><p>数字内容编辑与网络传播</p><span class="star-tag">&#9733; 核心代码</span></article><article class="star-card c-yellow"><div class="star-path"><span class="sp g">L</span><span class="sep">&rsaquo;</span><span class="sp">72</span><span class="sep">&rsaquo;</span><span class="sp">725</span><span class="sep">&rsaquo;</span><span class="sp big">7251</span></div><h4>互联网广告服务</h4><p>数字营销与投放优化</p><span class="star-tag">&#9733; 核心代码</span></article><article class="star-card c-red"><div class="star-path"><span class="sp g">M</span><span class="sep">&rsaquo;</span><span class="sp">74</span><span class="sep">&rsaquo;</span><span class="sp">749</span><span class="sep">&rsaquo;</span><span class="sp big">7492</span></div><h4>专业设计服务</h4><p>各类专业设计服务</p><span class="star-tag">&#9733; 核心代码</span></article></div><p class="band-sub" style="margin-top:12px">标注 &#9733; 的为与专业课程能力最贴近的行业代码，可作为简历行业标签、岗位对口分析与产教融合方向的锚点。</p><div class="band" style="--bc:var(--magenta)"><h2>② 门类全景</h2><p class="band-sub">按相关度分区：核心区 / 强相关 / 延伸面</p></div>
+<div class="filters" role="group" aria-label="按相关度筛选">
+  <button class="fbtn" data-filter="all" aria-pressed="true">全部 8</button>
+  <button class="fbtn" data-filter="core" aria-pressed="false">核心区</button>
+  <button class="fbtn" data-filter="strong" aria-pressed="false">强相关</button>
+  <button class="fbtn" data-filter="ext" aria-pressed="false">延伸面</button>
+</div>
+<section class="panel t-core" data-tier="core">
+<header class="panel-head"><div class="gate-letter">I</div><div class="gate-txt"><p class="gate-kicker">门类 I</p><h3 class="gate-name">信息传输、软件和信息技术服务业</h3><p class="gate-note">数字内容生产、分发与软件实现的行业主场</p></div><span class="tier-badge">核心区</span></header>
+<div class="panel-body">
+<div class="c2block">
+<p class="c2head"><span class="code c2code">65</span><span class="c2name">软件和信息技术服务业</span></p>
+<p class="c2note">指对信息传输、信息制作、信息提供和信息接收过程中产生的技术问题或技术需求所提供的服务</p>
+<div class="mid">
+<p class="c3head"><span class="code c3code">657</span><span class="c3name">数字内容服务</span> <i class="mark">&#9733;</i></p>
+<ul class="smalls">
+<li class="chip"><span class="cc">6571</span><span class="cn">地理遥感信息服务</span><span class="note">地图制图、遥感影像处理</span></li>
+<li class="chip star"><span class="cc">6572</span><span class="cn">动漫、游戏数字内容服务</span><span class="note">与专业最直接对应的行业代码</span></li>
+<li class="chip star"><span class="cc">6579</span><span class="cn">其他数字内容服务</span><span class="note">含数字文化和数字体育内容服务</span></li>
+</ul></div>
+<div class="mid">
+<p class="c3head"><span class="code c3code">651</span><span class="c3name">软件开发</span></p>
+<ul class="smalls">
+<li class="chip"><span class="cc">6511</span><span class="cn">基础软件开发</span></li>
+<li class="chip"><span class="cc">6512</span><span class="cn">支撑软件开发</span></li>
+<li class="chip star"><span class="cc">6513</span><span class="cn">应用软件开发</span><span class="note">交互/前端/图形引擎/行业软件</span></li>
+<li class="chip"><span class="cc">6519</span><span class="cn">其他软件开发</span></li>
+</ul></div>
+<div class="mid">
+<p class="c3head"><span class="code c3code">653</span><span class="c3name">信息系统集成和物联网技术服务</span></p>
+<ul class="smalls">
+<li class="chip"><span class="cc">6531</span><span class="cn">信息系统集成服务</span><span class="note">含需求分析、系统设计与集成实施</span></li>
+<li class="chip"><span class="cc">6532</span><span class="cn">物联网技术服务</span></li>
+</ul></div>
+<div class="mid">
+<p class="c3head"><span class="code c3code">655</span><span class="c3name">信息处理和存储支持服务</span></p>
+<ul class="smalls">
+<li class="chip"><span class="cc">6550</span><span class="cn">信息处理和存储支持服务</span><span class="note">音视频数据的分析、整理、计算、编辑、存储</span></li>
+</ul></div>
+<div class="mid">
+<p class="c3head"><span class="code c3code">654</span><span class="c3name">运行维护服务</span></p>
+<ul class="smalls">
+<li class="chip"><span class="cc">6540</span><span class="cn">运行维护服务</span></li>
+</ul></div>
+<div class="mid">
+<p class="c3head"><span class="code c3code">656</span><span class="c3name">信息技术咨询服务</span></p>
+<ul class="smalls">
+<li class="chip"><span class="cc">6560</span><span class="cn">信息技术咨询服务</span></li>
+</ul></div>
+<div class="mid">
+<p class="c3head"><span class="code c3code">652</span><span class="c3name">集成电路设计</span></p>
+<ul class="smalls">
+<li class="chip"><span class="cc">6520</span><span class="cn">集成电路设计</span></li>
+</ul></div>
+<div class="mid">
+<p class="c3head"><span class="code c3code">659</span><span class="c3name">其他信息技术服务业</span></p>
+<ul class="smalls">
+<li class="chip"><span class="cc">6591</span><span class="cn">呼叫中心</span></li>
+<li class="chip"><span class="cc">6599</span><span class="cn">其他未列明信息技术服务业</span></li>
+</ul></div>
+</div>
+<div class="c2block">
+<p class="c2head"><span class="code c2code">64</span><span class="c2name">互联网和相关服务</span></p>
+<p class="c2note">内容平台、网络视听与在线娱乐的分发通道</p>
+<div class="mid">
+<p class="c3head"><span class="code c3code">642</span><span class="c3name">互联网信息服务</span> <i class="mark">&#9733;</i></p>
+<ul class="smalls">
+<li class="chip"><span class="cc">6421</span><span class="cn">互联网搜索服务</span></li>
+<li class="chip star"><span class="cc">6422</span><span class="cn">互联网游戏服务</span><span class="note">含互联网电子竞技服务</span></li>
+<li class="chip star"><span class="cc">6429</span><span class="cn">互联网其他信息服务</span><span class="note">网络视听、社交、内容社区</span></li>
+</ul></div>
+<div class="mid">
+<p class="c3head"><span class="code c3code">643</span><span class="c3name">互联网平台</span></p>
+<ul class="smalls">
+<li class="chip"><span class="cc">6431</span><span class="cn">互联网生产服务平台</span></li>
+<li class="chip"><span class="cc">6432</span><span class="cn">互联网生活服务平台</span></li>
+<li class="chip"><span class="cc">6433</span><span class="cn">互联网科技创新平台</span></li>
+<li class="chip"><span class="cc">6434</span><span class="cn">互联网公共服务平台</span></li>
+<li class="chip"><span class="cc">6439</span><span class="cn">其他互联网平台</span></li>
+</ul></div>
+<div class="mid">
+<p class="c3head"><span class="code c3code">645</span><span class="c3name">互联网数据服务</span></p>
+<ul class="smalls">
+<li class="chip"><span class="cc">6450</span><span class="cn">互联网数据服务</span></li>
+</ul></div>
+<div class="mid">
+<p class="c3head"><span class="code c3code">641</span><span class="c3name">互联网接入及相关服务</span></p>
+<ul class="smalls">
+<li class="chip"><span class="cc">6410</span><span class="cn">互联网接入及相关服务</span></li>
+</ul></div>
+<div class="mid">
+<p class="c3head"><span class="code c3code">644</span><span class="c3name">互联网安全服务</span></p>
+<ul class="smalls">
+<li class="chip"><span class="cc">6440</span><span class="cn">互联网安全服务</span></li>
+</ul></div>
+<div class="mid">
+<p class="c3head"><span class="code c3code">649</span><span class="c3name">其他互联网服务</span></p>
+<ul class="smalls">
+<li class="chip"><span class="cc">6490</span><span class="cn">其他互联网服务</span></li>
+</ul></div>
+</div>
+<div class="c2block">
+<p class="c2head"><span class="code c2code">63</span><span class="c2name">电信、广播电视和卫星传输服务</span></p>
+<p class="c2note">视听内容的传输与覆盖网络</p>
+<div class="mid">
+<p class="c3head"><span class="code c3code">632</span><span class="c3name">广播电视传输服务</span></p>
+<ul class="smalls">
+<li class="chip"><span class="cc">6321</span><span class="cn">有线广播电视传输服务</span></li>
+<li class="chip"><span class="cc">6322</span><span class="cn">无线广播电视传输服务</span></li>
+</ul></div>
+<div class="mid">
+<p class="c3head"><span class="code c3code">633</span><span class="c3name">卫星传输服务</span></p>
+<ul class="smalls">
+<li class="chip"><span class="cc">6331</span><span class="cn">广播电视卫星传输服务</span></li>
+<li class="chip"><span class="cc">6339</span><span class="cn">其他卫星传输服务</span></li>
+</ul></div>
+<div class="mid">
+<p class="c3head"><span class="code c3code">631</span><span class="c3name">电信</span></p>
+<ul class="smalls">
+<li class="chip"><span class="cc">6311</span><span class="cn">固定电信服务</span></li>
+<li class="chip"><span class="cc">6312</span><span class="cn">移动电信服务</span></li>
+<li class="chip"><span class="cc">6319</span><span class="cn">其他电信服务</span></li>
+</ul></div>
+</div>
+</div></section><section class="panel t-core" data-tier="core">
+<header class="panel-head"><div class="gate-letter">R</div><div class="gate-txt"><p class="gate-kicker">门类 R</p><h3 class="gate-name">文化、体育和娱乐业</h3><p class="gate-note">影视、声音、出版与文化内容的创作现场</p></div><span class="tier-badge">核心区</span></header>
+<div class="panel-body">
+<div class="c2block">
+<p class="c2head"><span class="code c2code">87</span><span class="c2name">广播、电视、电影和录音制作业</span></p>
+<p class="c2note">指对广播、电视、电影、影视录音内容的制作、编导、主持、播出、放映等活动；不包括广播电视信号的传输和接收活动</p>
+<div class="mid">
+<p class="c3head"><span class="code c3code">873</span><span class="c3name">影视节目制作</span> <i class="mark">&#9733;</i> <span class="merged">中小类合一</span></p>
+<ul class="smalls">
+<li class="chip star"><span class="cc">8730</span><span class="cn">影视节目制作</span><span class="note">含电影、电视、录像与网络节目制作及后期制作</span></li>
+</ul></div>
+<div class="mid">
+<p class="c3head"><span class="code c3code">877</span><span class="c3name">录音制作</span> <i class="mark">&#9733;</i> <span class="merged">中小类合一</span></p>
+<ul class="smalls">
+<li class="chip star"><span class="cc">8770</span><span class="cn">录音制作</span><span class="note">录音节目与音乐作品制作</span></li>
+</ul></div>
+<div class="mid">
+<p class="c3head"><span class="code c3code">874</span><span class="c3name">广播电视集成播控</span> <span class="merged">中小类合一</span></p>
+<ul class="smalls">
+<li class="chip star"><span class="cc">8740</span><span class="cn">广播电视集成播控</span><span class="note">IP电视、手机电视、互联网电视集成播控</span></li>
+</ul></div>
+<div class="mid">
+<p class="c3head"><span class="code c3code">871</span><span class="c3name">广播</span> <span class="merged">中小类合一</span></p>
+<ul class="smalls">
+<li class="chip"><span class="cc">8710</span><span class="cn">广播</span><span class="note">含互联网广播</span></li>
+</ul></div>
+<div class="mid">
+<p class="c3head"><span class="code c3code">872</span><span class="c3name">电视</span> <span class="merged">中小类合一</span></p>
+<ul class="smalls">
+<li class="chip"><span class="cc">8720</span><span class="cn">电视</span><span class="note">含互联网电视</span></li>
+</ul></div>
+<div class="mid">
+<p class="c3head"><span class="code c3code">875</span><span class="c3name">电影和广播电视节目发行</span> <span class="merged">中小类合一</span></p>
+<ul class="smalls">
+<li class="chip"><span class="cc">8750</span><span class="cn">电影和广播电视节目发行</span></li>
+</ul></div>
+<div class="mid">
+<p class="c3head"><span class="code c3code">876</span><span class="c3name">电影放映</span> <span class="merged">中小类合一</span></p>
+<ul class="smalls">
+<li class="chip"><span class="cc">8760</span><span class="cn">电影放映</span></li>
+</ul></div>
+</div>
+<div class="c2block">
+<p class="c2head"><span class="code c2code">86</span><span class="c2name">新闻和出版业</span></p>
+<p class="c2note">内容编辑加工与数字发行的出版环节</p>
+<div class="mid">
+<p class="c3head"><span class="code c3code">862</span><span class="c3name">出版业</span> <i class="mark">&#9733;</i></p>
+<ul class="smalls">
+<li class="chip star"><span class="cc">8626</span><span class="cn">数字出版</span><span class="note">利用数字技术编辑加工并通过网络传播数字内容产品</span></li>
+<li class="chip star"><span class="cc">8625</span><span class="cn">电子出版物出版</span></li>
+<li class="chip star"><span class="cc">8624</span><span class="cn">音像制品出版</span></li>
+<li class="chip"><span class="cc">8621</span><span class="cn">图书出版</span></li>
+<li class="chip"><span class="cc">8622</span><span class="cn">报纸出版</span></li>
+<li class="chip"><span class="cc">8623</span><span class="cn">期刊出版</span></li>
+<li class="chip"><span class="cc">8629</span><span class="cn">其他出版业</span></li>
+</ul></div>
+<div class="mid">
+<p class="c3head"><span class="code c3code">861</span><span class="c3name">新闻业</span> <span class="merged">中小类合一</span></p>
+<ul class="smalls">
+<li class="chip"><span class="cc">8610</span><span class="cn">新闻业</span></li>
+</ul></div>
+</div>
+<div class="c2block">
+<p class="c2head"><span class="code c2code">88</span><span class="c2name">文化艺术业</span></p>
+<p class="c2note">数字展陈、演艺视觉与文化内容服务</p>
+<div class="mid">
+<p class="c3head"><span class="code c3code">882</span><span class="c3name">艺术表演场馆</span> <span class="merged">中小类合一</span></p>
+<ul class="smalls">
+<li class="chip"><span class="cc">8820</span><span class="cn">艺术表演场馆</span><span class="note">舞台、灯光、音响与视觉呈现</span></li>
+</ul></div>
+<div class="mid">
+<p class="c3head"><span class="code c3code">881</span><span class="c3name">文艺创作与表演</span> <span class="merged">中小类合一</span></p>
+<ul class="smalls">
+<li class="chip"><span class="cc">8810</span><span class="cn">文艺创作与表演</span></li>
+</ul></div>
+<div class="mid">
+<p class="c3head"><span class="code c3code">885</span><span class="c3name">博物馆</span> <span class="merged">中小类合一</span></p>
+<ul class="smalls">
+<li class="chip"><span class="cc">8850</span><span class="cn">博物馆</span><span class="note">数字展陈、沉浸式展示</span></li>
+</ul></div>
+<div class="mid">
+<p class="c3head"><span class="code c3code">883</span><span class="c3name">图书馆与档案馆</span></p>
+<ul class="smalls">
+<li class="chip"><span class="cc">8831</span><span class="cn">图书馆</span><span class="note">数字图书馆、数字典藏</span></li>
+<li class="chip"><span class="cc">8832</span><span class="cn">档案馆</span></li>
+</ul></div>
+<div class="mid">
+<p class="c3head"><span class="code c3code">887</span><span class="c3name">群众文体活动</span> <span class="merged">中小类合一</span></p>
+<ul class="smalls">
+<li class="chip"><span class="cc">8870</span><span class="cn">群众文体活动</span></li>
+</ul></div>
+<div class="mid">
+<p class="c3head"><span class="code c3code">889</span><span class="c3name">其他文化艺术业</span> <span class="merged">中小类合一</span></p>
+<ul class="smalls">
+<li class="chip"><span class="cc">8890</span><span class="cn">其他文化艺术业</span></li>
+</ul></div>
+</div>
+<div class="c2block">
+<p class="c2head"><span class="code c2code">90</span><span class="c2name">娱乐业</span></p>
+<p class="c2note">互动娱乐与线下体验消费</p>
+<div class="mid">
+<p class="c3head"><span class="code c3code">901</span><span class="c3name">室内娱乐活动</span></p>
+<ul class="smalls">
+<li class="chip star"><span class="cc">9012</span><span class="cn">电子游艺厅娱乐活动</span></li>
+<li class="chip"><span class="cc">9013</span><span class="cn">网吧活动</span></li>
+<li class="chip"><span class="cc">9011</span><span class="cn">歌舞厅娱乐活动</span></li>
+<li class="chip"><span class="cc">9019</span><span class="cn">其他室内娱乐活动</span></li>
+</ul></div>
+<div class="mid">
+<p class="c3head"><span class="code c3code">905</span><span class="c3name">文化体育娱乐活动与经纪代理服务</span></p>
+<ul class="smalls">
+<li class="chip"><span class="cc">9051</span><span class="cn">文化活动服务</span><span class="note">策划、组织、实施各类文化娱乐演出庆典</span></li>
+<li class="chip"><span class="cc">9053</span><span class="cn">文化娱乐经纪人</span></li>
+<li class="chip"><span class="cc">9052</span><span class="cn">体育表演服务</span></li>
+<li class="chip"><span class="cc">9059</span><span class="cn">其他文化艺术经纪代理</span></li>
+</ul></div>
+<div class="mid">
+<p class="c3head"><span class="code c3code">902</span><span class="c3name">游乐园</span> <span class="merged">中小类合一</span></p>
+<ul class="smalls">
+<li class="chip"><span class="cc">9020</span><span class="cn">游乐园</span></li>
+</ul></div>
+<div class="mid">
+<p class="c3head"><span class="code c3code">909</span><span class="c3name">其他娱乐业</span> <span class="merged">中小类合一</span></p>
+<ul class="smalls">
+<li class="chip"><span class="cc">9090</span><span class="cn">其他娱乐业</span></li>
+</ul></div>
+</div>
+</div></section><section class="panel t-strong" data-tier="strong">
+<header class="panel-head"><div class="gate-letter">L</div><div class="gate-txt"><p class="gate-kicker">门类 L</p><h3 class="gate-name">租赁和商务服务业</h3><p class="gate-note">广告投放与展会活动的商务侧接口</p></div><span class="tier-badge">强相关</span></header>
+<div class="panel-body">
+<div class="c2block">
+<p class="c2head"><span class="code c2code">72</span><span class="c2name">商务服务业</span></p>
+<p class="c2note">含广告、会展等品牌与传播服务</p>
+<div class="mid">
+<p class="c3head"><span class="code c3code">725</span><span class="c3name">广告业</span> <i class="mark">&#9733;</i></p>
+<ul class="smalls">
+<li class="chip star"><span class="cc">7251</span><span class="cn">互联网广告服务</span><span class="note">数字营销、投放与效果优化</span></li>
+<li class="chip star"><span class="cc">7259</span><span class="cn">其他广告服务</span><span class="note">策划与制作有偿宣传活动</span></li>
+</ul></div>
+<div class="mid">
+<p class="c3head"><span class="code c3code">728</span><span class="c3name">会议、展览及相关服务</span></p>
+<ul class="smalls">
+<li class="chip star"><span class="cc">7284</span><span class="cn">文化会展服务</span></li>
+<li class="chip"><span class="cc">7281</span><span class="cn">科技会展服务</span></li>
+<li class="chip"><span class="cc">7282</span><span class="cn">旅游会展服务</span></li>
+<li class="chip"><span class="cc">7283</span><span class="cn">体育会展服务</span></li>
+</ul></div>
+</div>
+<div class="c2block">
+<p class="c2head"><span class="code c2code">71</span><span class="c2name">租赁业</span></p>
+<p class="c2note">设备与内容载体的租赁</p>
+<div class="mid">
+<p class="c3head"><span class="code c3code">712</span><span class="c3name">文体设备和用品出租</span></p>
+<ul class="smalls">
+<li class="chip"><span class="cc">7123</span><span class="cn">文化用品设备出租</span></li>
+<li class="chip"><span class="cc">7125</span><span class="cn">音像制品出租</span></li>
+<li class="chip"><span class="cc">7121</span><span class="cn">休闲娱乐用品设备出租</span></li>
+</ul></div>
+</div>
+</div></section><section class="panel t-strong" data-tier="strong">
+<header class="panel-head"><div class="gate-letter">C</div><div class="gate-txt"><p class="gate-kicker">门类 C</p><h3 class="gate-name">制造业</h3><p class="gate-note">拍摄、录制、显示与发行载体背后的硬件制造</p></div><span class="tier-badge">强相关</span></header>
+<div class="panel-body">
+<div class="c2block">
+<p class="c2head"><span class="code c2code">39</span><span class="c2name">计算机、通信和其他电子设备制造业</span></p>
+<p class="c2note">视听设备、显示与智能终端的制造</p>
+<div class="mid">
+<p class="c3head"><span class="code c3code">393</span><span class="c3name">广播电视设备制造</span> <i class="mark">&#9733;</i></p>
+<ul class="smalls">
+<li class="chip star"><span class="cc">3931</span><span class="cn">广播电视节目制作及发射设备制造</span><span class="note">节目制作、发射设备及器材</span></li>
+<li class="chip star"><span class="cc">3934</span><span class="cn">专业音响设备制造</span></li>
+<li class="chip"><span class="cc">3932</span><span class="cn">广播电视接收设备制造</span></li>
+<li class="chip"><span class="cc">3933</span><span class="cn">广播电视专用配件制造</span></li>
+<li class="chip"><span class="cc">3939</span><span class="cn">应用电视设备及其他广播电视设备制造</span></li>
+</ul></div>
+<div class="mid">
+<p class="c3head"><span class="code c3code">395</span><span class="c3name">非专业视听设备制造</span></p>
+<ul class="smalls">
+<li class="chip star"><span class="cc">3953</span><span class="cn">影视录放设备制造</span><span class="note">机顶盒、录像机、摄像机、激光视盘机</span></li>
+<li class="chip"><span class="cc">3951</span><span class="cn">电视机制造</span></li>
+<li class="chip"><span class="cc">3952</span><span class="cn">音响设备制造</span></li>
+</ul></div>
+<div class="mid">
+<p class="c3head"><span class="code c3code">397</span><span class="c3name">电子器件制造</span></p>
+<ul class="smalls">
+<li class="chip star"><span class="cc">3974</span><span class="cn">显示器件制造</span><span class="note">屏幕与显示</span></li>
+<li class="chip"><span class="cc">3976</span><span class="cn">光电子器件制造</span></li>
+</ul></div>
+<div class="mid">
+<p class="c3head"><span class="code c3code">396</span><span class="c3name">智能消费设备制造</span></p>
+<ul class="smalls">
+<li class="chip star"><span class="cc">3961</span><span class="cn">可穿戴智能设备制造</span><span class="note">XR / 可穿戴设备</span></li>
+<li class="chip"><span class="cc">3969</span><span class="cn">其他智能消费设备制造</span></li>
+</ul></div>
+</div>
+<div class="c2block">
+<p class="c2head"><span class="code c2code">34</span><span class="c2name">通用设备制造业</span></p>
+<p class="c2note">摄影、投影与影像机械</p>
+<div class="mid">
+<p class="c3head"><span class="code c3code">347</span><span class="c3name">文化、办公用机械制造</span></p>
+<ul class="smalls">
+<li class="chip star"><span class="cc">3471</span><span class="cn">电影机械制造</span><span class="note">电影摄影机、录音摄影机、放映机及辅助器材</span></li>
+<li class="chip star"><span class="cc">3472</span><span class="cn">幻灯及投影设备制造</span></li>
+<li class="chip star"><span class="cc">3473</span><span class="cn">照相机及器材制造</span></li>
+<li class="chip"><span class="cc">3479</span><span class="cn">其他文化、办公用机械制造</span></li>
+</ul></div>
+</div>
+<div class="c2block">
+<p class="c2head"><span class="code c2code">23</span><span class="c2name">印刷和记录媒介复制业</span></p>
+<p class="c2note">实体载体与印刷品</p>
+<div class="mid">
+<p class="c3head"><span class="code c3code">231</span><span class="c3name">印刷</span></p>
+<ul class="smalls">
+<li class="chip"><span class="cc">2311</span><span class="cn">书、报刊印刷</span></li>
+<li class="chip"><span class="cc">2312</span><span class="cn">本册印制</span></li>
+<li class="chip"><span class="cc">2319</span><span class="cn">包装装潢及其他印刷</span></li>
+</ul></div>
+<div class="mid">
+<p class="c3head"><span class="code c3code">232</span><span class="c3name">装订及印刷相关服务</span> <span class="merged">中小类合一</span></p>
+<ul class="smalls">
+<li class="chip"><span class="cc">2320</span><span class="cn">装订及印刷相关服务</span></li>
+</ul></div>
+<div class="mid">
+<p class="c3head"><span class="code c3code">233</span><span class="c3name">记录媒介复制</span> <span class="merged">中小类合一</span></p>
+<ul class="smalls">
+<li class="chip"><span class="cc">2330</span><span class="cn">记录媒介复制</span><span class="note">光盘、磁带等载体复制</span></li>
+</ul></div>
+</div>
+<div class="c2block">
+<p class="c2head"><span class="code c2code">24</span><span class="c2name">文教、工美、体育和娱乐用品制造业</span></p>
+<p class="c2note">乐器、玩具与游艺器材</p>
+<div class="mid">
+<p class="c3head"><span class="code c3code">242</span><span class="c3name">乐器制造</span></p>
+<ul class="smalls">
+<li class="chip star"><span class="cc">2423</span><span class="cn">电子乐器制造</span></li>
+<li class="chip"><span class="cc">2421</span><span class="cn">中乐器制造</span></li>
+<li class="chip"><span class="cc">2422</span><span class="cn">西乐器制造</span></li>
+<li class="chip"><span class="cc">2429</span><span class="cn">其他乐器及零件制造</span></li>
+</ul></div>
+<div class="mid">
+<p class="c3head"><span class="code c3code">245</span><span class="c3name">玩具制造</span></p>
+<ul class="smalls">
+<li class="chip"><span class="cc">2451</span><span class="cn">电玩具制造</span></li>
+<li class="chip"><span class="cc">2459</span><span class="cn">其他玩具制造</span></li>
+</ul></div>
+<div class="mid">
+<p class="c3head"><span class="code c3code">246</span><span class="c3name">游艺器材及娱乐用品制造</span></p>
+<ul class="smalls">
+<li class="chip star"><span class="cc">2462</span><span class="cn">游艺用品及室内游艺器材制造</span></li>
+<li class="chip"><span class="cc">2461</span><span class="cn">露天游乐场所游乐设备制造</span></li>
+</ul></div>
+</div>
+</div></section><section class="panel t-strong" data-tier="strong">
+<header class="panel-head"><div class="gate-letter">M</div><div class="gate-txt"><p class="gate-kicker">门类 M</p><h3 class="gate-name">科学研究和技术服务业</h3><p class="gate-note">设计服务与工程化的技术侧支撑</p></div><span class="tier-badge">强相关</span></header>
+<div class="panel-body">
+<div class="c2block">
+<p class="c2head"><span class="code c2code">74</span><span class="c2name">专业技术服务业</span></p>
+<p class="c2note">工业设计、专业设计与工程设计</p>
+<div class="mid">
+<p class="c3head"><span class="code c3code">749</span><span class="c3name">工业与专业设计及其他专业技术服务</span> <i class="mark">&#9733;</i></p>
+<ul class="smalls">
+<li class="chip star"><span class="cc">7492</span><span class="cn">专业设计服务</span><span class="note">除工程、软件、集成电路、工业设计外的各类专业设计</span></li>
+<li class="chip star"><span class="cc">7491</span><span class="cn">工业设计服务</span></li>
+</ul></div>
+<div class="mid">
+<p class="c3head"><span class="code c3code">748</span><span class="c3name">工程技术与设计服务</span></p>
+<ul class="smalls">
+<li class="chip"><span class="cc">7484</span><span class="cn">工程设计活动</span></li>
+<li class="chip"><span class="cc">7485</span><span class="cn">规划设计管理</span></li>
+</ul></div>
+</div>
+</div></section><section class="panel t-strong" data-tier="strong">
+<header class="panel-head"><div class="gate-letter">P</div><div class="gate-txt"><p class="gate-kicker">门类 P</p><h3 class="gate-name">教育</h3><p class="gate-note">技能培训与文化艺术教育的出口</p></div><span class="tier-badge">强相关</span></header>
+<div class="panel-body">
+<div class="c2block">
+<p class="c2head"><span class="code c2code">83</span><span class="c2name">教育</span></p>
+<p class="c2note">含职业技能培训与文化艺术培训</p>
+<div class="mid">
+<p class="c3head"><span class="code c3code">839</span><span class="c3name">技能培训、教育辅助及其他教育</span> <i class="mark">&#9733;</i></p>
+<ul class="smalls">
+<li class="chip star"><span class="cc">8393</span><span class="cn">文化艺术培训</span><span class="note">学校制度以外的文化艺术培训</span></li>
+<li class="chip star"><span class="cc">8391</span><span class="cn">职业技能培训</span><span class="note">数字媒体技能培训</span></li>
+<li class="chip"><span class="cc">8399</span><span class="cn">其他未列明教育</span></li>
+</ul></div>
+</div>
+</div></section><section class="panel t-ext" data-tier="ext">
+<header class="panel-head"><div class="gate-letter">F</div><div class="gate-txt"><p class="gate-kicker">门类 F</p><h3 class="gate-name">批发和零售业</h3><p class="gate-note">内容产品与设备的流通渠道</p></div><span class="tier-badge">延伸面</span></header>
+<div class="panel-body">
+<div class="c2block">
+<p class="c2head"><span class="code c2code">51</span><span class="c2name">批发业</span></p>
+<p class="c2note">内容载体与影视设备的批发</p>
+<div class="mid">
+<p class="c3head"><span class="code c3code">514</span><span class="c3name">文化、体育用品及器材批发</span></p>
+<ul class="smalls">
+<li class="chip star"><span class="cc">5145</span><span class="cn">音像制品、电子和数字出版物批发</span></li>
+<li class="chip"><span class="cc">5147</span><span class="cn">乐器批发</span></li>
+<li class="chip"><span class="cc">5149</span><span class="cn">其他文化用品批发</span></li>
+</ul></div>
+<div class="mid">
+<p class="c3head"><span class="code c3code">517</span><span class="c3name">机械设备、五金产品及电子产品批发</span></p>
+<ul class="smalls">
+<li class="chip star"><span class="cc">5176</span><span class="cn">计算机、软件及辅助设备批发</span></li>
+<li class="chip star"><span class="cc">5178</span><span class="cn">广播影视设备批发</span></li>
+</ul></div>
+<div class="mid">
+<p class="c3head"><span class="code c3code">519</span><span class="c3name">其他批发业</span></p>
+<ul class="smalls">
+<li class="chip star"><span class="cc">5193</span><span class="cn">互联网批发</span></li>
+</ul></div>
+</div>
+<div class="c2block">
+<p class="c2head"><span class="code c2code">52</span><span class="c2name">零售业</span></p>
+<p class="c2note">面向终端消费者的内容零售</p>
+<div class="mid">
+<p class="c3head"><span class="code c3code">524</span><span class="c3name">文化、体育用品及器材专门零售</span></p>
+<ul class="smalls">
+<li class="chip star"><span class="cc">5244</span><span class="cn">音像制品、电子和数字出版物零售</span></li>
+<li class="chip"><span class="cc">5248</span><span class="cn">照相器材零售</span></li>
+</ul></div>
+<div class="mid">
+<p class="c3head"><span class="code c3code">527</span><span class="c3name">家用电器及电子产品专门零售</span></p>
+<ul class="smalls">
+<li class="chip star"><span class="cc">5273</span><span class="cn">计算机、软件及辅助设备零售</span></li>
+</ul></div>
+<div class="mid">
+<p class="c3head"><span class="code c3code">529</span><span class="c3name">货摊、无店铺及其他零售业</span></p>
+<ul class="smalls">
+<li class="chip star"><span class="cc">5292</span><span class="cn">互联网零售</span></li>
+<li class="chip"><span class="cc">5293</span><span class="cn">邮购及电视、电话零售</span></li>
+</ul></div>
+</div>
+</div></section><section class="panel t-ext" data-tier="ext">
+<header class="panel-head"><div class="gate-letter">O</div><div class="gate-txt"><p class="gate-kicker">门类 O</p><h3 class="gate-name">居民服务、修理和其他服务业</h3><p class="gate-note">影像拍摄与输出的一线服务</p></div><span class="tier-badge">延伸面</span></header>
+<div class="panel-body">
+<div class="c2block">
+<p class="c2head"><span class="code c2code">80</span><span class="c2name">居民服务业</span></p>
+<p class="c2note">摄影与扩印服务</p>
+<div class="mid">
+<p class="c3head"><span class="code c3code">806</span><span class="c3name">摄影扩印服务</span> <span class="merged">中小类合一</span></p>
+<ul class="smalls">
+<li class="chip"><span class="cc">8060</span><span class="cn">摄影扩印服务</span><span class="note">商业摄影、影像输出</span></li>
+</ul></div>
+</div>
+</div></section><div class="band" style="--bc:var(--cyan)"><h2>③ 能力 × 代码 就业对照表</h2><p class="band-sub">专业方向映射到可对口的行业小类</p></div>
+<div class="scroll">
+  <table class="matrix">
+    <thead><tr><th scope="col">专业方向</th><th scope="col">对口行业大类 / 中类 / 小类代码</th></tr></thead>
+    <tbody><tr><th scope="row">数字影音 · 影视后期</th><td><ul class="mlist"><li>8730 影视节目制作</li><li>8770 录音制作</li><li>8740 广播电视集成播控</li><li>8624 音像制品出版</li></ul></td></tr><tr><th scope="row">动画 · 游戏 · 数字内容</th><td><ul class="mlist"><li>6572 动漫、游戏数字内容服务</li><li>6422 互联网游戏服务</li><li>6513 应用软件开发</li><li>6579 其他数字内容服务</li></ul></td></tr><tr><th scope="row">交互设计 · 前端 · 图形引擎</th><td><ul class="mlist"><li>6513 应用软件开发</li><li>7492 专业设计服务</li><li>7251 互联网广告服务</li></ul></td></tr><tr><th scope="row">虚拟现实 · 多媒体集成</th><td><ul class="mlist"><li>6579 其他数字内容服务</li><li>6531 信息系统集成服务</li><li>6550 信息处理和存储支持服务</li><li>3961 可穿戴智能设备制造</li></ul></td></tr><tr><th scope="row">数字出版 · 内容运营</th><td><ul class="mlist"><li>8626 数字出版</li><li>8625 电子出版物出版</li><li>6429 互联网其他信息服务</li><li>9013 网吧活动</li></ul></td></tr><tr><th scope="row">广告 · 视觉传达</th><td><ul class="mlist"><li>7251 互联网广告服务</li><li>7259 其他广告服务</li><li>7492 专业设计服务</li><li>7491 工业设计服务</li></ul></td></tr><tr><th scope="row">数字展陈 · 文化演艺</th><td><ul class="mlist"><li>8850 博物馆</li><li>8820 艺术表演场馆</li><li>9051 文化活动服务</li><li>8870 群众文体活动</li></ul></td></tr><tr><th scope="row">教育培训 · 科普</th><td><ul class="mlist"><li>8393 文化艺术培训</li><li>8391 职业技能培训</li><li>8399 其他未列明教育</li></ul></td></tr><tr><th scope="row">演播工程 · 硬件设备</th><td><ul class="mlist"><li>3931 广播电视节目制作及发射设备制造</li><li>3953 影视录放设备制造</li><li>3472 幻灯及投影设备制造</li><li>5178 广播影视设备批发</li></ul></td></tr><tr><th scope="row">内容流通 · 电商渠道</th><td><ul class="mlist"><li>5145 音像制品、电子和数字出版物批发</li><li>5244 音像制品、电子和数字出版物零售</li><li>5292 互联网零售</li><li>5193 互联网批发</li></ul></td></tr></tbody>
+  </table>
+</div>
+
+<section class="notes">
+  <h3>读表说明</h3>
+  <ol>
+    <li><b>四级编码结构</b>：门类（1 位字母）&rarr; 大类（2 位数字）&rarr; 中类（3 位数字）&rarr; 小类（4 位数字），编码前缀始终继承上级。</li>
+    <li><b>中小类合一</b>：标准中部分类目不再细分小类，其小类代码为中类代码后补 0（如中类 873 &rarr; 小类 8730），本页已按原表标注。</li>
+    <li><b>同一大类下的取舍</b>：为聚焦主题，部分大类只列出与本专业相关的类目，未列出的类目不代表其不存在。</li>
+    <li><b>两套体系要分清</b>：本页是《国民经济行业分类》&mdash;&mdash;用于统计、招聘、行业归属与工商登记；<b>不是</b>教育部《普通高等学校本科专业目录》，专业代码（如 080906）属于另一套体系。</li>
+    <li><b>用在哪</b>：岗位对口分析、简历行业标签、产教融合与实习基地筛选、项目立项的行业归类，都可以直接引用这里的四位代码。</li>
+  </ol>
+</section>
+</div>
+
+<footer>
+  <p class="f-pop">POP! 一套代码，四种读法</p>
+  <p>数字媒体技术 &times; 国民经济行业分类 GB/T 4754&mdash;2017（代替 GB/T 4754&mdash;2011）<br>
+  本页共收录 8 个门类 / 18 个大类 / 60 个中类 / 123 个小类</p>
+  <span class="f-src">P020200612582987744004.DOCX</span>
+</footer>
+
+<script>
+(function(){
+  var btns = document.querySelectorAll('.fbtn');
+  var panels = document.querySelectorAll('.panel');
+  Array.prototype.forEach.call(btns, function(b){
+    b.addEventListener('click', function(){
+      Array.prototype.forEach.call(btns, function(x){ x.setAttribute('aria-pressed','false'); });
+      b.setAttribute('aria-pressed','true');
+      var t = b.getAttribute('data-filter');
+      Array.prototype.forEach.call(panels, function(p){
+        p.hidden = !(t === 'all' || p.getAttribute('data-tier') === t);
+      });
+    });
+  });
+})();
+
+</script>
+</body>
+</html>
